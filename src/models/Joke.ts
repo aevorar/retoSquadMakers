@@ -1,28 +1,48 @@
-import { DataTypes, Model, Optional } from "sequelize";
-import { sequelize } from "../config/db";
+// models/Joke.ts
+import { DataTypes, Model, Optional } from "sequelize"
+import { sequelize } from "../config/db"
 
 interface JokeAttributes {
-  id: number;
-  text: string;
+  id: number
+  titulo: string
+  cuerpo: string
+  idUsuario: number
 }
 
-interface JokeCreationAttributes extends Optional<JokeAttributes, "id"> {}
+interface JokeCreationAttributes extends Optional<JokeAttributes, "id" | "titulo" | "idUsuario"> {}
 
-export const Joke = sequelize.define<Model<JokeAttributes, JokeCreationAttributes>>(
-  "Joke",
+export class Joke extends Model<JokeAttributes, JokeCreationAttributes> implements JokeAttributes {
+  public id!: number
+  public titulo!: string
+  public cuerpo!: string
+  public idUsuario!: number
+}
+
+Joke.init(
   {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    text: {
+    titulo: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: () => `Chiste ${Date.now()}`
+    },
+    cuerpo: {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    idUsuario: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 1
+    },
   },
   {
-    tableName: "jokes",
+    sequelize,
+    tableName: "Chistes",
     timestamps: false,
   }
-);
+)
