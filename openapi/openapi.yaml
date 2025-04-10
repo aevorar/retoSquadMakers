@@ -1,0 +1,145 @@
+openapi: 3.0.3
+info:
+  title: API Reto SM
+  version: 1.0.0
+  description: API REST
+
+servers:
+  - url: http://localhost:3000
+
+paths:
+  /joke:
+    get:
+      summary: Obtener un chiste aleatorio
+      responses:
+        '200':
+          description: Chiste obtenido correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  joke:
+                    type: string
+        '400':
+          description: Tipo no válido
+
+    post:
+      summary: Guardar un nuevo chiste
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                joke:
+                  type: string
+      responses:
+        '200':
+          description: Chiste guardado
+        '400':
+          description: Datos inválidos
+
+    put:
+      summary: Actualizar un chiste existente
+      parameters:
+        - in: query
+          name: number
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: newText
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Chiste actualizado
+        '400':
+          description: Datos inválidos
+        '404':
+          description: Chiste no encontrado
+
+    delete:
+      summary: Eliminar un chiste por ID
+      parameters:
+        - in: query
+          name: number
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Chiste eliminado
+        '404':
+          description: Chiste no encontrado
+
+  /joke/{type}:
+    get:
+      summary: Obtener un chiste de tipo específico
+      parameters:
+        - in: path
+          name: type
+          required: true
+          description: Tipo de chiste ("chuck" o "dad")
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Chiste obtenido correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  joke:
+                    type: string
+        '400':
+          description: Tipo no válido
+
+  /math/lcm:
+    get:
+      summary: Obtener el MCM de una lista de números
+      parameters:
+        - in: query
+          name: numbers
+          required: true
+          description: Lista de enteros separados por coma (e.g. 4,5,6)
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Resultado del MCM
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  lcm:
+                    type: integer
+        '400':
+          description: Parámetros inválidos
+
+  /math/increment:
+    get:
+      summary: Incrementar un número
+      parameters:
+        - in: query
+          name: number
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Número incrementado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: integer
+        '400':
+          description: Número inválido

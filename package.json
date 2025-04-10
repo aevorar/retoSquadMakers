@@ -1,0 +1,26 @@
+{
+  "name": "retosquadmakers",
+  "version": "1.0.0",
+  "description": "Reto SM",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node-dev --respawn src/server.ts"
+  },
+  "author": "aevora",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "1.8.4",
+    "dotenv": "16.4.7",
+    "express": "5.1.0",
+    "mysql2": "3.14.0",
+    "sequelize": "6.37.7"
+  },
+  "devDependencies": {
+    "@types/express": "5.0.1",
+    "@types/node": "22.14.0",
+    "@types/sequelize": "4.28.20",
+    "ts-node-dev": "2.0.0",
+    "typescript": "5.8.3"
+  }
+}
